@@ -19,20 +19,15 @@ def classify0(inX, dataSet, labels, k):
         发生频率最高的元素标签
     """
     dataSetSize = dataSet.shape[0]
-    #print "dataSetSize=", dataSetSize
-    #print "tile=", tile(inX, (dataSetSize, 1))
     diffMat = tile(inX, (dataSetSize, 1)) - dataSet
-    #print "diffMat=", diffMat
     sqDiffMat = diffMat**2
     sqDistances = sqDiffMat.sum(axis=1)
     distances = sqDistances**0.5
-    #print "distances=", distances
     sortedDistIndicies = distances.argsort()
     classCount={}
     for i in range(k):
         voteIlabel = labels[sortedDistIndicies[i]]
         classCount[voteIlabel]=classCount.get(voteIlabel,0) + 1
-    #print "classCount", classCount
     sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), reverse=True)
     return sortedClassCount[0][0]
 
@@ -76,4 +71,15 @@ def autoNorm(dataSet):
 """
 分类器测试代码
 """
-def dating
+def classTest(filename, extra, K):
+    hoRatio = 0.10
+    dataMat, labels = file2matrix(filename, extra)
+    normMat, ranges, minVals = autoNorm(dataMat)
+    m = normMat.shape[0]
+    numTestVecs = int(m*hoRatio)
+    errorCount = 0.0
+    for i in range(numTestVecs):
+        classifierResult = classify0(normMat[i,:],normMat[numTestVecs:m,:], labels[numTestVecs:m], K)
+        #print "the classifier came back with: %d, the real answer is: %d" % (classifierResult, labels[i])
+        if (classifierResult != labels[i]): errorCount += 1.0
+    print "the total error rate is: %f" % (errorCount/float(numTestVecs))
