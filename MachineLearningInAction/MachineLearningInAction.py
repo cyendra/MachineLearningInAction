@@ -3,13 +3,8 @@ from numpy import *
 import operator
 from os import listdir
 
-kNN.classTest("datingTestSet2.txt",3, 3)
-kNN.classTest("datingTestSet2.txt",3, 7)
-kNN.classTest("datingTestSet2.txt",3, 10)
-kNN.classTest("datingTestSet2.txt",3, 15)
+import trees
 
-
-
-
-
-
+myDat, labels = trees.createDataSet()
+myTree = trees.createTree(myDat, labels)
+print myTree
