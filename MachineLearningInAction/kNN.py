@@ -2,11 +2,6 @@
 from numpy import *
 import operator
 
-def createDataSet():
-    group = array([[1.0,1.1],[1.0,1.0],[0,0],[0,0.1]])
-    labels = ['A','A','B','B']
-    return group, labels
-
 def classify0(inX, dataSet, labels, k):
     """
     k-邻近算法
@@ -35,10 +30,10 @@ def file2matrix(filename, extra):
     """
     将文本记录转换为NumPy
     Args:
-        filename: 
-        extra:
+        filename: 文件名
+        extra: 特征数
     Returns:
-
+        样本集, 标签集
     """
     fr = open(filename)
     arrayOLines = fr.readlines()
@@ -57,6 +52,10 @@ def file2matrix(filename, extra):
 def autoNorm(dataSet):
     """
     归一化特征值
+    Args:
+        dataSet: 样本集
+    Returns:
+        新的样本矩阵
     """
     minVals = dataSet.min(0)
     maxVals = dataSet.max(0)
@@ -68,10 +67,15 @@ def autoNorm(dataSet):
     return normDataSet, ranges, minVals
 
 
-"""
-分类器测试代码
-"""
+
 def classTest(filename, extra, K):
+    """
+    分类器测试代码
+    Args:
+        filename: 文本记录的文件名
+        extra: 特征数
+        K: 用于选择最邻近的数目
+    """
     hoRatio = 0.10
     dataMat, labels = file2matrix(filename, extra)
     normMat, ranges, minVals = autoNorm(dataMat)
@@ -83,3 +87,22 @@ def classTest(filename, extra, K):
         #print "the classifier came back with: %d, the real answer is: %d" % (classifierResult, labels[i])
         if (classifierResult != labels[i]): errorCount += 1.0
     print "the total error rate is: %f" % (errorCount/float(numTestVecs))
+
+
+def img2vector(filename, N, M):
+    """
+    将N*M的二维矩阵转换为一维向量
+    Args:
+        filename: 由01串组成N行M列的文本文件
+        N: 行数
+        M: 列数
+    """
+    returnVect = zeros((1,N*M))
+    fr = open(filename)
+    for i in range(N):
+        lineStr = fr.readlin()
+        for j in range(M):
+            returnVect[0,M*i+j] = int(lineStr[j])
+    return returnVect
+
+
