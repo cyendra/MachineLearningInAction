@@ -24,6 +24,7 @@
   <ItemGroup>
     <Compile Include="kNN.py" />
     <Compile Include="MachineLearningInAction.py" />
+    <Compile Include="treePlotter.py" />
     <Compile Include="trees.py" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
