@@ -117,3 +117,74 @@ def createTree(dataSet, labels):
         subLabels = labels[:] # 子标签
         myTree[bestFeatLabel][value] = createTree(splitDataSet(dataSet, bestFeat, value), subLabels) #递归求子树
     return myTree
+
+#-----------------------------------------------
+
+def classify(inputTree, featLabels, testVec):
+    """
+    使用决策树的分类函数
+    Args:
+        inputTree: 决策树
+        featLabels: 标签向量
+        testVec: 待分类的数据
+    Returns:
+        classLabel: 分类结果
+    """
+    firstStr = inputTree.keys()[0]
+    secondDict = inputTree[firstStr]
+    featIndex = featLabels.index(firstStr)
+    for key in secondDict.keys():
+        if testVec[featIndex] == key:
+            if type(secondDict[key]).__name__=='dict':
+                classLabel = classify(secondDict[key], featLabels, testVec)
+            else: classLabel = secondDict[key]
+    return classLabel
+
+def storeTree(inputTree, filename):
+    """
+    储存决策树
+    Args:
+        inputTree: 待储存的决策树
+        filename: 储存文件名
+    """
+    import pickle
+    fw = open(filename, 'w')
+    pickle.dump(inputTree, fw)
+    fw.close()
+
+def grabTree(filename):
+    """
+    读取决策树
+    Args:
+        filename: 待读取的文件名
+    """
+    import pickle
+    fr = open(filename)
+    return pickle.load(fr)
+
+def getNumLeafs(myTree):
+    """
+        获取树的叶结点总数
+    """
+    numLeafs = 0
+    firstStr = myTree.keys()[0]
+    secondDict = myTree[firstStr]
+    for key in secondDict.keys():
+        if type(secondDict[key]).__name__=='dict':
+            numLeafs += getNumLeafs(secondDict[key])
+        else: numLeafs += 1
+    return numLeafs
+
+def getTreeDepth(myTree):
+    """
+    获取树的深度
+    """
+    maxDepth = 0
+    firstStr = myTree.keys()[0]
+    secondDict = myTree[firstStr]
+    for key in secondDict.keys():
+        if type(secondDict[key]).__name__=='dict':
+            thisDepth = 1 + getTreeDepth(secondDict[key])
+        else: thisDepth = 1
+        if thisDepth > maxDepth: maxDepth = thisDepth
+    return maxDepth
