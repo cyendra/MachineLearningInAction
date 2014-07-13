@@ -2,13 +2,16 @@ import kNN
 from numpy import *
 import operator
 from os import listdir
-
 import trees
-
 import treePlotter
-myDat, labels = trees.createDataSet()
-print labels
-myTree=treePlotter.retrieveTree(0)
-print myTree
-print trees.classify(myTree,labels,[1,0])
-print trees.classify(myTree,labels,[1,1])
+
+import bayes
+
+listOPosts, listClasses = bayes.loadDataSet()
+
+myVocabList = bayes.createVocabList(listOPosts)
+print myVocabList
+
+print bayes.setOfWords2Vec(myVocabList, listOPosts[0])
+
+print bayes.setOfWords2Vec(myVocabList, listOPosts[3])
