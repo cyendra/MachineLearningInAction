@@ -45,12 +45,46 @@ def gradAscent(dataMatIn, classLabels):
         weights = weights + alpha * dataMatrix.transpose() * error # 梯度上升算法的迭代公式
     return weights
 
+def stocGradAscent0(dataMatIn, classLabels):
+    """
+    随机梯度上升算法 beta
+    """
+    dataMatrix = array(dataMatIn)
+    m, n = shape(dataMatrix)
+    alpha = 0.01
+    weights = ones(n)
+    for i in range(m):
+        h = sigmoid(sum(dataMatrix[i] * weights))
+        error = classLabels[i] - h
+        weights = weights + alpha * error * dataMatrix[i]
+    return weigths
+
+def stocGradAscent1(dataMatIn, classLabels, numIter = 150):
+    """
+    随机梯度上升算法
+    """
+    dataMatrix = array(dataMatIn)
+    m, n = shape(dataMatrix)
+    weights = ones(n)
+    for j in range(numIter):
+        dataIndex = range(m)
+        for i in range(m):
+            alpha = 4 / (1.0 + j + i) + 0.01
+            randIndex = int(random.uniform(0, len(dataIndex)))
+            h = sigmoid(sum(dataMatrix[randIndex] * weights))
+            error = classLabels[randIndex] - h
+            weights = weights + alpha * error * dataMatrix[randIndex]
+            del(dataIndex[randIndex])
+    return weights
+
+
 def plotBestFit(dataMatIn, classLabels, wei):
     """
     画出数据集和Logistic回归最佳拟合直线的函数
     """
     import matplotlib.pyplot as plt
-    weights = wei.getA()
+    #weights = wei.getA()
+    weights = wei
     dataMat, labelMat = dataMatIn, classLabels
     dataArr = array(dataMat)
     n = shape(dataArr)[0]
