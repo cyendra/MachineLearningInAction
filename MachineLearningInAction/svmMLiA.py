@@ -67,7 +67,7 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
                     labelMat[j] * (alphas[j] - alphaJold) *\
                     dataMatrix[i,:] * dataMatrix[j,:].T
                 b2 = b - Ej - labelMat[i] * (alphas[i] - alphaIold) *\
-                    dataMatix[i,:] * dataMatrix[j,:].T -\
+                    dataMatrix[i,:] * dataMatrix[j,:].T -\
                     labelMat[j] * (alphas[j] - alphaJold) *\
                     dataMatrix[j,:] * dataMatrix[j,:].T
                 if (0 < alphas[i]) and (C > alphas[i]):
@@ -78,7 +78,7 @@ def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
                     b = (b1 + b2) / 2.0
                 alphaPairsChanged += 1
                 print "iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged)
-        if (alphaPairChanged == 0): iter += 1
+        if (alphaPairsChanged == 0): iter += 1
         else: iter = 0
         print "iteration number: %d" % iter
     return b, alphas
