@@ -23,6 +23,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="bayes.py" />
+    <Compile Include="boost.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="kNN.py" />
     <Compile Include="logRegres.py">
       <SubType>Code</SubType>
