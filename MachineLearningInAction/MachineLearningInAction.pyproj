@@ -22,6 +22,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="adaboost.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="bayes.py" />
     <Compile Include="boost.py">
       <SubType>Code</SubType>

@@ -10,10 +10,10 @@ import bayes
 import logRegres
 
 import svmMLiA
-dataArr, labelArr = svmMLiA.loadDataSet('testSet.txt')
-print labelArr
+import boost
+import adaboost
 
-b, alphas = svmMLiA.smoSimple(dataArr, labelArr, 0.6, 0.001, 40)
-print b
-print alphas[alphas>0]
+datMat, classLabels = adaboost.loadSimpData()
 
+D = mat(ones((5,1))/5)
+print boost.buildStump(datMat, classLabels, D)

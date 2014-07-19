@@ -1,5 +1,7 @@
 # coding=gbk
 
+from numpy import *
+
 def stumpClassify(dataMatrix, dimen, threshVal, threshIneq):
     retArray = ones((shape(dataMatrix)[0],1))
     if threshIneq == 'lt':
@@ -27,7 +29,7 @@ def buildStump(dataArr, classLabels, D):
                 errArr = mat(ones((m,1)))
                 errArr[predictedVals == labelMat] = 0
                 weightedError = D.T * errArr
-                #print
+                print "split: dim %d, thresh %.2f, thresh ineqal: %s, the weighted error is %.3f" % (i, threshVal, inequal, weightedError)
                 if weightedError < minError:
                     minError = weightedError
                     bestClasEst = predictedVals.copy()
@@ -35,3 +37,4 @@ def buildStump(dataArr, classLabels, D):
                     bestStump['thresh'] = threshVal
                     bestStump['ineq'] = inequal
     return bestStump, minError, bestClasEst
+
