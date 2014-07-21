@@ -34,3 +34,10 @@ def adaBoostTrainDS(dataArr, classLabels, numIt = 40):
         print "total error: ", errorRate, "\n"
         if errorRate == 0.0: break
     return weakClassArr
+
+def adaClassify(datToClass, classifierArr):
+    dataMatrix = mat(datToClass)
+    m = shape(dataMatrix)[0]
+    aggClassEst = mat(zeros((m,1)))
+    for i in ran
+
