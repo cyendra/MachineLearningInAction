@@ -39,5 +39,7 @@ def adaClassify(datToClass, classifierArr):
     dataMatrix = mat(datToClass)
     m = shape(dataMatrix)[0]
     aggClassEst = mat(zeros((m,1)))
-    for i in ran
+    for i in range():
+        ;
+
 
