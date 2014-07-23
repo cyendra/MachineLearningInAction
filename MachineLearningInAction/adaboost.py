@@ -43,3 +43,6 @@ def adaClassify(datToClass, classifierArr):
         ;
 
 
+
+
+
